@@ -2,6 +2,7 @@ class Book
 
   @@on_shelf = []
   @@on_loan = []
+  @@current_due_date = 15
 
   ## CLASS METHODS ##
   def self.create(title, author, isbn)
@@ -10,8 +11,9 @@ class Book
     return book
   end
 
+  # The due date is 21 days from the lend date.
   def self.current_due_date
-
+    @@current_due_date = (Time.now + (3600*24*21)).asctime
   end
 
   def self.overdue_books
@@ -37,6 +39,7 @@ class Book
     @isbn = isbn
   end
 
+  ## READER METHODS ##
   def title
     @title
   end
@@ -49,8 +52,20 @@ class Book
     @isbn
   end
 
+  ## OTHER METHODS ##
   def borrow
+    if lent_out?
+      false
 
+    else
+      self.due_date = Book.current_due_date
+
+      dummy_book = @@on_shelf.find do |book|
+        book.isbn == @isbn
+      end
+      @@on_loan << @@on_shelf.delete(dummy_book)
+      return true
+    end
   end
 
   def return_to_library
@@ -63,9 +78,9 @@ class Book
     end
 
     if list_of_lent_out_matches.length > 0
-      true
+      return true
     else
-      false
+      return false
     end
   end
 
@@ -74,6 +89,7 @@ class Book
   end
 
   def due_date=(due_date)
+    # puts "hihihihihi"
     @due_date = due_date
   end
 end
@@ -90,3 +106,8 @@ book4 = Book.create(1,1,5)
 # puts Book.browse
 
 puts book4.lent_out?
+# puts Book.current_due_date
+puts book4.borrow
+puts book4.due_date
+# puts book4.inspect
+# puts book4.lent_out?
