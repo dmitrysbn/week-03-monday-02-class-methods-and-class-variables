@@ -27,7 +27,7 @@ class Book
   end
 
   def self.borrowed
-    @@on_load
+    @@on_loan
   end
 
   ## INSTANCE METHODS ##
@@ -35,6 +35,18 @@ class Book
     @title = title
     @author = author
     @isbn = isbn
+  end
+
+  def title
+    @title
+  end
+
+  def author
+    @author
+  end
+
+  def isbn
+    @isbn
   end
 
   def borrow
@@ -46,7 +58,15 @@ class Book
   end
 
   def lent_out?
+    list_of_lent_out_matches = @@on_loan.select do |book|
+      book.isbn == @isbn
+    end
 
+    if list_of_lent_out_matches.length > 0
+      true
+    else
+      false
+    end
   end
 
   def due_date
@@ -65,6 +85,8 @@ book4 = Book.create(1,1,5)
 
 # puts Book.available
 
-puts Book.browse
-puts Book.browse
-puts Book.browse
+# puts Book.browse
+# puts Book.browse
+# puts Book.browse
+
+puts book4.lent_out?
