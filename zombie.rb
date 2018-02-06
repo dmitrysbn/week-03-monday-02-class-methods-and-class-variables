@@ -11,12 +11,25 @@ class Zombie
     @@horde
   end
 
+  def self.plague_level
+    @@plague_level
+  end
+
   def self.new_day
 
   end
 
   def self.some_die_off
+    number_to_die = rand(11)
+    if number_to_die > @@horde.size
+      @@horde = []
 
+    else
+      #This is to make sure that random zombies die off
+      number_to_die.times do
+        @@horde.delete_at(rand(@@horde.size) % @@horde.size)
+      end
+    end
   end
 
   def self.spawn
@@ -28,7 +41,7 @@ class Zombie
   end
 
   def self.increase_plague_level
-
+    @@plague_level += rand(3)
   end
 
 
@@ -52,7 +65,15 @@ class Zombie
 
 end
 
-# zombie1 = Zombie.new(99,99)
-# puts zombie1.inspect
-Zombie.spawn
-puts Zombie.all.inspect
+10.times do
+  Zombie.spawn
+end
+
+# puts Zombie.all.inspect
+puts Zombie.all.size
+Zombie.some_die_off
+puts Zombie.all.size
+
+5.times do
+  Zombie.increase_plague_level
+end
