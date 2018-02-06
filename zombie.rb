@@ -16,7 +16,9 @@ class Zombie
   end
 
   def self.new_day
-
+    self.some_die_off
+    self.spawn
+    self.increase_plague_level
   end
 
   def self.some_die_off
@@ -33,7 +35,7 @@ class Zombie
   end
 
   def self.spawn
-    number_of_zombies = rand(5) + 1
+    number_of_zombies = rand(20) + 1
     number_of_zombies.times do |i|
       i = Zombie.new(rand(@@max_speed), rand(@@max_strength))
       @@horde << i
@@ -56,11 +58,19 @@ class Zombie
   end
 
   def outrun_zombie?
-
+    if rand(@@max_speed) > @speed
+      true
+    else
+      false
+    end
   end
 
   def survive_attack?
-
+    if rand(@@max_strength) > @strength
+      true
+    else
+      false
+    end
   end
 
 end
@@ -73,6 +83,9 @@ end
 puts Zombie.all.size
 Zombie.some_die_off
 puts Zombie.all.size
+Zombie.new_day
+puts Zombie.all.size
+puts Zombie.plague_level
 
 5.times do
   Zombie.increase_plague_level
