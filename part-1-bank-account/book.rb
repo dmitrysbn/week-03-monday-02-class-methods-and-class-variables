@@ -69,7 +69,18 @@ class Book
   end
 
   def return_to_library
+    if lent_out?
+      self.due_date = nil
 
+      dummy_book = @@on_loan.find do |book|
+        book.isbn == @isbn
+      end
+      @@on_shelf << @@on_loan.delete(dummy_book)
+      return true
+
+    else
+      false
+    end
   end
 
   def lent_out?
@@ -89,7 +100,6 @@ class Book
   end
 
   def due_date=(due_date)
-    # puts "hihihihihi"
     @due_date = due_date
   end
 end
@@ -106,8 +116,9 @@ book4 = Book.create(1,1,5)
 # puts Book.browse
 
 puts book4.lent_out?
-# puts Book.current_due_date
 puts book4.borrow
 puts book4.due_date
-# puts book4.inspect
-# puts book4.lent_out?
+puts book4.lent_out?
+puts book4.return_to_library
+puts book4.due_date
+puts Book.available
