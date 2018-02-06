@@ -25,7 +25,7 @@ class Book
     list_of_genre = @@on_shelf.select do |book|
       book.genre == genre
     end
-    return list_of_genre[rand(list_of_genre.size)]
+    list_of_genre[rand(list_of_genre.size)]
   end
 
   def self.available
@@ -122,27 +122,28 @@ class Book
   end
 end
 
-# book1 = Book.create(1, 11, 5, "horror")
-# book2 = Book.create(2, 22, 5, "epic")
-# book3 = Book.create(3, 33, 5, "poetry")
-# book4 = Book.create(4, 44, 5, "poetry")
-#
-# # puts Book.available
-#
-# # puts Book.browse('poetry')
-# # puts Book.browse
-# # puts Book.browse
-#
-# puts book4.lent_out?
-# puts book4.borrow
-# puts book4.due_date
-# puts book4.borrow
-# puts book4.renew
-# puts book4.lent_out?
-# puts book4.return_to_library
-# puts book4.due_date
-# puts Book.available
-# puts Book.overdue.inspect
+book1 = Book.create(1, 11, 5, "horror")
+book2 = Book.create(2, 22, 5, "epic")
+book3 = Book.create(3, 33, 5, "poetry")
+book4 = Book.create(4, 44, 5, "poetry")
+
+puts Book.available
+
+puts Book.browse('poetry')
+puts Book.browse('poetry')
+# puts Book.browse
+# puts Book.browse
+
+puts book4.lent_out?
+puts book4.borrow
+puts book4.due_date
+puts book4.borrow
+puts book4.renew
+puts book4.lent_out?
+puts book4.return_to_library
+puts book4.due_date
+puts Book.available
+puts Book.overdue.inspect
 
 ## TEST INPUTS FROM ASSIGNMENT ##
 # sister_outsider = Book.create("Sister Outsider", "Audre Lorde", "9781515905431")
