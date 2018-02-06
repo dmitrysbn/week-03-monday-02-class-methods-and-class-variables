@@ -22,10 +22,23 @@ class Book
   end
 
   def self.browse(genre)
-    list_of_genre = @@on_shelf.select do |book|
+    combined_list = @@on_shelf + @@on_loan
+
+    list_of_genre = combined_list.select do |book|
       book.genre == genre
     end
-    list_of_genre[rand(list_of_genre.size)]
+
+    return list_of_genre[rand(list_of_genre.size)]
+  end
+
+  def self.search(identifier)
+    combined_list = @@on_shelf + @@on_loan
+
+    list_of_matches = combined_list.select do |book|
+      (book.title == identifier) || (book.author == identifier) || (book.isbn == identifier)
+    end
+
+    return list_of_matches
   end
 
   def self.available
@@ -129,8 +142,9 @@ book4 = Book.create(4, 44, 5, "poetry")
 
 puts Book.available
 
-puts Book.browse('poetry')
-puts Book.browse('poetry')
+# puts Book.browse('poetry')
+# puts Book.browse('poetry')
+puts Book.search(5) # returns all books
 # puts Book.browse
 # puts Book.browse
 
