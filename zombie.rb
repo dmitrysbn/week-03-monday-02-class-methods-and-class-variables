@@ -54,7 +54,17 @@ class Zombie
   end
 
   def encounter
+    if self.outrun_zombie?
+      puts "You escaped!"
 
+    elsif self.survive_attack?
+      zombie = Zombie.new(rand(@@max_speed), rand(@@max_strength))
+      @@horde << zombie
+      puts "You've turned into a zombie!"
+
+    else
+      puts "You died."
+    end
   end
 
   def outrun_zombie?
@@ -82,11 +92,13 @@ end
 # puts Zombie.all.inspect
 puts Zombie.all.size
 Zombie.some_die_off
-puts Zombie.all.size
 Zombie.new_day
+# puts Zombie.plague_level
 puts Zombie.all.size
-puts Zombie.plague_level
+zombie1 = Zombie.new(4,2)
+zombie1.encounter
+puts Zombie.all.size
 
-5.times do
-  Zombie.increase_plague_level
-end
+# 5.times do
+#   Zombie.increase_plague_level
+# end
