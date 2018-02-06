@@ -37,13 +37,22 @@ class Zombie
   def self.spawn
     number_of_zombies = rand(20) + 1
     number_of_zombies.times do |i|
-      i = Zombie.new(rand(@@max_speed), rand(@@max_strength))
+      i = Zombie.new(rand(@@max_speed + 1), rand(@@max_strength + 1))
       @@horde << i
     end
   end
 
   def self.increase_plague_level
-    @@plague_level += rand(3)
+    @@plague_level += rand(3) + @@horde.size/2
+  end
+
+  def self.deadliest_zombie
+    horde_numbers = @@horde.map do |zombie|
+      zombie.strength + zombie.speed
+    end
+    deadliest_number = horde_numbers.max
+    deadliest_index = horde_numbers.find_index(deadliest_number)
+    return @@horde[deadliest_index]
   end
 
 
@@ -51,6 +60,14 @@ class Zombie
   def initialize(speed, strength)
     @speed = [speed, @@max_speed].min
     @strength = [strength, @@max_strength].min
+  end
+
+  def speed
+    @speed
+  end
+
+  def strength
+    @strength
   end
 
   def encounter
@@ -90,14 +107,16 @@ end
 end
 
 # puts Zombie.all.inspect
+puts Zombie.plague_level
 puts Zombie.all.size
 Zombie.some_die_off
 Zombie.new_day
-# puts Zombie.plague_level
 puts Zombie.all.size
 zombie1 = Zombie.new(4,2)
 zombie1.encounter
 puts Zombie.all.size
+# puts Zombie.plague_level
+puts Zombie.deadliest_zombie.inspect
 
 # 5.times do
 #   Zombie.increase_plague_level
