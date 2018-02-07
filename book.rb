@@ -6,13 +6,13 @@ class Book
   ## CLASS METHODS ##
   def self.create(title, author, isbn, genre)
     book = Book.new(title, author, isbn, genre)
-     @@on_shelf << book
+    @@on_shelf << book
     return book
   end
 
   # The due date is 21 days from the lend date.
   def self.current_due_date
-    @@current_due_date = Time.now + (3600*24*21)
+    @@current_due_date = Time.now + (3600 * 24 * 21)
   end
 
   def self.overdue
@@ -111,7 +111,7 @@ class Book
       book.isbn == @isbn
     end
 
-    if list_of_lent_out_matches.length > 0
+    if !list_of_lent_out_matches.empty?
       return true
     else
       return false
@@ -130,7 +130,7 @@ class Book
     if @on_hold
       false
     else
-      self.due_date += 3600*24*21
+      self.due_date += 3600 * 24 * 21
     end
   end
 end
