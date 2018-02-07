@@ -27,7 +27,7 @@ class Zombie
       @@horde = []
 
     else
-      #This is to make sure that random zombies die off
+      # This is to make sure that random zombies die off
       number_to_die.times do
         @@horde.delete_at(rand(@@horde.size) % @@horde.size)
       end
@@ -43,7 +43,7 @@ class Zombie
   end
 
   def self.increase_plague_level
-    @@plague_level += rand(3) + @@horde.size/2
+    @@plague_level += rand(3) + @@horde.size / 2
   end
 
   def self.deadliest_zombie
@@ -54,7 +54,6 @@ class Zombie
     deadliest_index = horde_numbers.find_index(deadliest_number)
     return @@horde[deadliest_index]
   end
-
 
   ### INSTANCE METHODS ###
   def initialize(speed, strength)

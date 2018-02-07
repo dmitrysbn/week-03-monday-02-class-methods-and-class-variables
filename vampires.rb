@@ -13,7 +13,7 @@ class Vampire
 
   def self.sunrise
     alive_vampires = @@coven.select do |vampire|
-      (vampire.in_coffin) == true && (vampire.drank_blood_today == true)
+      vampire.in_coffin == true && vampire.drank_blood_today == true
     end
     @@coven = alive_vampires
   end
@@ -25,9 +25,6 @@ class Vampire
     end
     @@coven = reset_coven_stats
   end
-
-
-
 
   ## INSTANCE METHODS ##
   def initialize(name, age)
@@ -60,8 +57,6 @@ class Vampire
   def go_home
     @in_coffin = true
   end
-
-
 end
 
 vampire1 = Vampire.create("Dmitry", 666)
@@ -78,13 +73,11 @@ puts "Sunrise!"
 Vampire.sunrise
 puts Vampire.coven.inspect
 
-
 puts "Make more vampires."
 5.times do
   Vampire.create(rand(6), rand(600))
 end
 puts Vampire.coven
-
 
 puts "Sunset!"
 Vampire.sunset
