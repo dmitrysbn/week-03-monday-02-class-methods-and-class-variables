@@ -28,8 +28,6 @@ class BankAccount
     end
   end
 
-
-
   ## INSTANCE METHODS ##
   def initialize
     @balance = 0.0
@@ -77,7 +75,6 @@ puts my_account.balance
 puts your_account.balance
 # puts BankAccount.accounts
 puts BankAccount.total_funds
-
 
 ## TEST ##
 # my_account = BankAccount.create
